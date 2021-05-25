@@ -2,6 +2,8 @@ from PIL import Image, ImageFont, ImageDraw
 import numpy as np
 import csv
 import os, tkinter, tkinter.filedialog, tkinter.messagebox, tkinter.filedialog
+import qrcode
+
 
 def main():
     systemName = '団体チケット一括発券システム'
@@ -45,9 +47,10 @@ def main():
 
     # フォント指定
     font_path = "./font/ヒラギノ丸ゴ ProN W4.ttc"
-    font_size_name = 20
-    font_size_ticketNo = 20
+    font_size_name = 44
+    font_size_ticketNo = 44
 
+    # 保存サイズを指定
     img_save_size = 1227, 1751
 
     # 【テキスト入れ】
@@ -73,8 +76,10 @@ def main():
         w_ticketNo, h_ticketNo = draw.textsize(row[0], font_ticketNo)
 
         # テキストを描画（位置、文章、フォント、文字色(BGR+α)を指定）
-        draw.text((613.5-w_name/2, 1500-h_name/2), row[1], font=font_name, fill=(0, 0, 0, 0))
-        draw.text((613.5-w_ticketNo/2, 1550-h_ticketNo/2), (row[0]), font=font_ticketNo, fill=(0, 0, 0, 0))
+        draw.text((614-w_name/2, 1190-h_name/2), row[1], font=font_name, fill=(0, 0, 0, 0))
+        draw.text((614-w_ticketNo/2, 1283-h_ticketNo/2), row[0], font=font_ticketNo, fill=(0, 0, 0, 0))
+
+        # QRを作成
 
         # img.thumbnail(img_save_size)
         img.save(save_src + "/tanabata_skylatern_festival_2020to2021_ticket_GROUP_" + str(row[0]) + ".png", dpi=(300, 300))
