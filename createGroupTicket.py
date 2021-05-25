@@ -60,7 +60,7 @@ def main():
     for row in l:
         # 処理状況出力
         cnt += 1
-        print(str(round(cnt/total*100, 2)) + "%(" + str(cnt) + "/" + str(total) + ")")
+        print(str(round(cnt/total*100, 2)) + "%(" + str(cnt) + "/" + str(total) + ") " + row[0] + row[1])
 
         # img = Image.fromarray(img)  # cv2(NumPy)型の画像をPIL型に変換
         img = Image.open(img_src)
@@ -80,7 +80,21 @@ def main():
         draw.text((614-w_ticketNo/2, 1283-h_ticketNo/2), row[0], font=font_ticketNo, fill=(0, 0, 0, 0))
 
         # QRを作成
+        qr = qrcode.QRCode(
+            version=12,
+            error_correction=qrcode.constants.ERROR_CORRECT_M,
+            box_size=7,
+            border=0,
+        )
+        qr.add_data('https://www.wixevents.com/check-in/'+row[0]+',f1ac71ba-38121526')
+        qr.make()
+        img_qr = qr.make_image(fill_color='#000000', back_color="#DED6BF")
 
+        # QRを描画
+        img.paste(img_qr, (614-img_qr.size[0]//2, 860-img_qr.size[1]//2))   # // -> 整数を返す。/ -> 浮動小数ではエラーになる
+
+
+        # チケット書き出し
         # img.thumbnail(img_save_size)
         img.save(save_src + "/tanabata_skylatern_festival_2020to2021_ticket_GROUP_" + str(row[0]) + ".png", dpi=(300, 300))
 
