@@ -76,8 +76,11 @@ def main():
         w_ticketNo, h_ticketNo = draw.textsize(row[0], font_ticketNo)
 
         # テキストを描画（位置、文章、フォント、文字色(BGR+α)を指定）
-        draw.text((614-w_name/2, 1190-h_name/2), row[1], font=font_name, fill=(0, 0, 0, 0))
-        draw.text((614-w_ticketNo/2, 1283-h_ticketNo/2), row[0], font=font_ticketNo, fill=(0, 0, 0, 0))
+        # draw.text((614-w_name/2, 1190-h_name/2), row[1], font=font_name, fill=(0, 0, 0, 0))
+        # draw.text((614-w_ticketNo/2, 1283-h_ticketNo/2), row[0], font=font_ticketNo, fill=(0, 0, 0, 0))
+        draw.text((614-w_name/2, 1190-h_name/2), row[1], font=font_name, fill=(0, 0, 0))
+        draw.text((614-w_ticketNo/2, 1283-h_ticketNo/2), row[0], font=font_ticketNo, fill=(0, 0, 0))
+
 
         # QRを作成
         qr = qrcode.QRCode(
